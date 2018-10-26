@@ -1,6 +1,7 @@
 VERY basic, Simple, yet effective. It definitely doesn't have all the features you'd likely want in it(YET) however for StarwarsRP servers who have been having numerous issues with other popular weapon bases having dumb issues this could be a bit of relief to those headaches.
 -----------------------------------------------------------------
-
+https://steamcommunity.com/sharedfiles/filedetails/?id=1548256366
+-----------------------------------------------------------------
 HOW TO USE:
 (STEPS 1-3 ARE IMPORTANT AS THIS IS HOW YOU SHOULD BE DELIVERING CONTENT TO YOUR SERVER. AVOID OVER USING WORKSHOP COLLECTIONS, IT JUST SLOWS DOWN SERVER REBOOTS WHEN IT HAS TO CHECK 100 DIFFERENT ADDONS FOR UPDATES THAT RARELY HAPPEN.)
 
