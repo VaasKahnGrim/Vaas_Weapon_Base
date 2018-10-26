@@ -195,3 +195,21 @@ end
 function SWEP:ShouldDropOnDie()
 	return false
 end
+function SWEP:DoImpactEffect(tr,dmgtype)
+	if(tr.HitSky)then
+		return true
+	end
+	util.Decal("fadingscorch",tr.HitPos + tr.HitNormal,tr.HitPos - tr.HitNormal)
+	if(game.SinglePlayer()or SERVER or not self:IsCarriedByLocalPlayer()or IsFirstTimePredicted())then
+		local effect = EffectData()
+		effect:SetOrigin(tr.HitPos)
+		effect:SetNormal(tr.HitNormal)
+		util.Effect("blaster_burn",effect)
+		local effect = EffectData()
+		effect:SetOrigin(tr.HitPos)
+		effect:SetStart(tr.StartPos)
+		effect:SetDamageType(dmgtype)
+		util.Effect("RagdollImpact",effect)
+	end
+    return true
+end
