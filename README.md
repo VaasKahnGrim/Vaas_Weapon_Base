@@ -29,7 +29,8 @@ Feature List:
   6. No gamemode restrictions as far as we know at the current moment
   7. Some anti-minge features to prevent annoying tendencies that minges do.
   8. Interchangable color confige for blasters!(red, blue, green, yellow, orange, cyan and purple)
-  9. More to come soon!
+  9. Scorch marks on impact
+  10. More to come soon!
 
 ------------------------------------------------------
 NOTE: It is highly advised to not use other weapon bases along side this weapon base. This one for the most part is much cleaner and easier to work with(its literally just 2 lua files and only 1 of them is being messed with)
