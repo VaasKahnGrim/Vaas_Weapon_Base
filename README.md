@@ -24,7 +24,7 @@ https://steamcommunity.com/id/serviusdoeswork/ For originally making the laser e
 -----------------------------------------------------
 https://steamcommunity.com/id/no1stargeorge For help with refining some functions in the initial base.
 -----------------------------------------------------
-https://steamcommunity.com/id/anthonyfuller For safty state and safty toggle spam prevention.
+https://steamcommunity.com/id/anthonyfuller For safety toggle and safety toggle spam prevention.
 -----------------------------------------------------
 https://steamcommunity.com/id/Rapadant_Networks_Vaas_Kahn_Grim/ For making a Simple AF weapon base out of frustration with other extremely bloated weapon bases.
 -----------------------------------------------------
