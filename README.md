@@ -15,6 +15,10 @@ STEP 4: Open up the base file and look at the configuration section for what you
 STEP 5: Copy ONLY  the config section into each new swep you create.
 STEP 6: Restart server, join server, test weapons and tune the configurations for them to your liking.
 STEP 7: Have fun!
+------------------------------------------------------
+https://github.com/VaasKahnGrim/BASIC_StarwarsRP_Weapon_Base/wiki/SWEP-Creation-Guid
+------------------------------------------------------
+
 
 ------------------------------------------------------
 NOTE: It is highly advised to not use other weapon bases along side this weapon base. This one for the most part is much cleaner and easier to work with(its literally just 2 lua files and only 1 of them is being messed with)
