@@ -29,13 +29,10 @@ https://steamcommunity.com/id/anthonyfuller For safety toggle and safety toggle 
 https://steamcommunity.com/id/Rapadant_Networks_Vaas_Kahn_Grim/ For making a Simple AF weapon base out of frustration with other extremely bloated weapon bases.
 -----------------------------------------------------
 NEXT UPDATE:
-
-  1. Weapon Safety
-  2. Better reloading
-  3. A slight tweak to the zooming feature
-  4. A few example weapons for actual use
-  5. A scoped variant of the base for weapons with actual scopes and sights
-
+  1. Scoped Weapons Varient
+  2. Example weapons for actual use
+  3. Attatchments for weapons
+  4. Replacement Effect for blaster shots
 -----------------------------------------------------
 Want to help develop this addon further?! Just make a discussion thread and you can help all you want! :)
 
