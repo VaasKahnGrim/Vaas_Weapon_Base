@@ -22,9 +22,11 @@ NOTE: It is highly advised to not use other weapon bases along side this weapon 
 CREDITS TO:
 https://steamcommunity.com/id/serviusdoeswork/ For originally making the laser effect used here. Slight touch ups were made to it syntax wise however I do intend to further improve the effect into something completely new. reason for mention is that I included this edited effect to prevent compatibility issues from happening and to simplify things.
 -----------------------------------------------------
-https://steamcommunity.com/id/no1stargeorge For help with refining some functions in the initial base which will be available in [BETA 1B]
+https://steamcommunity.com/id/no1stargeorge For help with refining some functions in the initial base.
 -----------------------------------------------------
-https://steamcommunity.com/id/Rapadant_Networks_Vaas_Kahn_Grim/ For making a Simple AF weapon base out of frustration with other extremely bloated weapon bases
+https://steamcommunity.com/id/anthonyfuller For safty state and safty toggle spam prevention.
+-----------------------------------------------------
+https://steamcommunity.com/id/Rapadant_Networks_Vaas_Kahn_Grim/ For making a Simple AF weapon base out of frustration with other extremely bloated weapon bases.
 -----------------------------------------------------
 NEXT UPDATE:
 
