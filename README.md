@@ -19,7 +19,16 @@ STEP 7: Have fun!
 ------------------------------------------------------
 https://github.com/VaasKahnGrim/BASIC_StarwarsRP_Weapon_Base/wiki/SWEP-Creation-Guid
 ------------------------------------------------------
-
+Feature List:
+------------------------------------------------------
+  1. Weapon Safety
+  2. Stupid Easy SWEP Creation
+  3. Extremly Light Weight compared to other weapon bases
+  4. No unneeded bloat code
+  5. RP Servers in mind during creation(however it will work generally on ANY and ALL servers)
+  6. No gamemode restrictions as far as we know at the current moment
+  7. Some anti-minge features to prevent annoying tendencies that minges do.
+  8. More to come soon!
 
 ------------------------------------------------------
 NOTE: It is highly advised to not use other weapon bases along side this weapon base. This one for the most part is much cleaner and easier to work with(its literally just 2 lua files and only 1 of them is being messed with)
