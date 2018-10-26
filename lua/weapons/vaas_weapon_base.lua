@@ -132,6 +132,9 @@ function SWEP:Initialize()
 	self:SetHoldType(self.DEFAULTHOLD)
 end
 function SWEP:PrimaryAttack()
+	
+	if self:GetHoldType() == "passive" then return end
+	
 	if(not self:CanPrimaryAttack())then
 		return
 	end
