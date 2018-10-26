@@ -28,11 +28,11 @@ https://steamcommunity.com/id/Rapadant_Networks_Vaas_Kahn_Grim/ For making a Sim
 -----------------------------------------------------
 NEXT UPDATE:
 
-  *Weapon Safety
-  *Better reloading
-  *A slight tweak to the zooming feature
-  *A few example weapons for actual use
-  *A scoped variant of the base for weapons with actual scopes and sights
+  1. Weapon Safety
+  2. Better reloading
+  3. A slight tweak to the zooming feature
+  4. A few example weapons for actual use
+  5. A scoped variant of the base for weapons with actual scopes and sights
 
 -----------------------------------------------------
 Want to help develop this addon further?! Just make a discussion thread and you can help all you want! :)
