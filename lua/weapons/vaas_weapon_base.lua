@@ -189,6 +189,27 @@ end
 function SWEP:ShouldDropOnDie()
 	return false
 end
+
+function SWEP:FireMode()
+
+    if self.Owner:KeyDown(IN_USE) and self.Owner:KeyDown(IN_SPEED) and self.Owner:KeyDown(IN_RELOAD) then
+
+        if self:GetHoldType() == "passive" then
+            self:SetHoldType( "ar2" )
+        else
+            self:SetHoldType( "passive" )
+        end
+
+    end
+
+end
+
+function SWEP:Think()
+
+    if !self.Owner:IsValid() then return end
+    self:FireMode()
+
+end
 --[[fix the below feature and I'll credit you for it btw]]
 --[[if(CurHold == 0)then
 		self:SetHoldType("passive")
