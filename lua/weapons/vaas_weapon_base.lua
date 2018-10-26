@@ -172,6 +172,26 @@ function SWEP:SecondaryAttack()
 	end
 end
 function SWEP:Reload()
+
+    if (self.cooldownvar || 0 ) < CurTime() then
+        self.cooldownvar  = CurTime() + 2
+
+        if self.Owner:KeyDown(IN_USE) and self.Owner:KeyDown(IN_SPEED) then
+
+            if self:GetHoldType() == "passive" then
+
+                self:SetHoldType( "ar2" )
+
+            else
+
+                self:SetHoldType( "passive" )
+
+            end
+
+        end
+
+    end
+	
 	if(self.Weapon:Ammo1() <= 0)then
 		return
 	end
