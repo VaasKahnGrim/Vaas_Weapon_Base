@@ -34,6 +34,3 @@ A scoped variant of the base for weapons with actual scopes and sights
 -----------------------------------------------------
 Want to help develop this addon further?! Just make a discussion thread and you can help all you want! :)
 
-
-Looking for a new host? Use one of the recommended ones below! These hosts I currently use to run my own servers and I can assure you that its well worth it.
-[url=https://www.emperorhosting.com/billing/aff.php?aff=14][img]https://i.imgur.com/BqE2soG.png[/img][/url]
