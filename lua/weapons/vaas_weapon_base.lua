@@ -213,3 +213,19 @@ function SWEP:DoImpactEffect(tr,dmgtype)
 	end
     return true
 end
+--[[function SWEP:FireAnimationEvent(pos,ang,event,options)
+	if(!self.CSMuzzleFlashes)then return end
+	if(event == 5001 or event == 5011 or event == 5021 or event == 5031)then
+		local data = EffectData()
+		data:SetFlags(0)
+		data:SetEntity(self.Owner:GetViewModel())
+		data:SetAttachment(math.floor((event - 4991) / 10))
+		data:SetScale(6000)
+		if(self.CSMuzzleX)then
+			util.Effect("blaster_flash",data)
+		else
+			util.Effect("blaster_flash",data)
+		end
+		return true
+	end
+end]]
