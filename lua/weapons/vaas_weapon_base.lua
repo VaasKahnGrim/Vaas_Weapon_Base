@@ -58,7 +58,7 @@ SWEP.Spawnable = true
 --[[is it only spawnable by BADMINS]]
 SWEP.AdminSpawnable = true
 --[[the laser that actually fires out the gun. don't fuck with this unless you know how effects work in lua]]
-SWEP.TracerName = "fucking_laser"
+SWEP.TracerName = "blue"
 --[[its a laser gun, best not to change the tracer count unless its a Republic shotgun or something]]
 SWEP.TracerCount = 1
 --[[how much ammo per clip]]
@@ -99,6 +99,8 @@ SWEP.ShouldDropOnDie = false
 --[[the sound of the gun when you shoot it]]
 local ShootSound = Sound("weapons/dc15a/dc15a_fire.ogg")
 
+
+
 --[[
 	//////////////////////////////////////////////////////////////////
 	////////////////////END OF CONFIGURATION//////////////////////////
@@ -120,21 +122,12 @@ local ShootSound = Sound("weapons/dc15a/dc15a_fire.ogg")
 													Vaas Kahn Grim
 													[RAPADANT NETWORKS]
 ]]
-
-
-
-
-
-
-
 local Time = CurTime()
 function SWEP:Initialize()
 	self:SetHoldType(self.DEFAULTHOLD)
 end
 function SWEP:PrimaryAttack()
-	
 	if self:GetHoldType() == "passive" then return end
-	
 	if(not self:CanPrimaryAttack())then
 		return
 	end
@@ -146,7 +139,7 @@ function SWEP:PrimaryAttack()
 		Bullet.Dir = ply:GetAimVector()
 		Bullet.Spread = Vector(self.Primary.Spread,self.Primary.Spread,0)
 		Bullet.Tracer = 1
-		Bullet.TracerName = self.TracerName
+		Bullet.TracerName = "fucking_laser_"..self.TracerName
 		Bullet.Damage = self.Primary.Damage
 		Bullet.AmmoType = self.Primary.Ammo
 	self:FireBullets(Bullet)
@@ -178,7 +171,7 @@ function SWEP:Reload()
     if(self.cooldownvar || 0) < CurTime()then
         self.cooldownvar  = CurTime() + 2
         if self.Owner:KeyDown(IN_USE)and self.Owner:KeyDown(IN_SPEED)then
-            if self:GetHoldType() == "passive" then
+            if(self:GetHoldType() == "passive")then
                 self:SetHoldType("ar2")
             else
                 self:SetHoldType("passive")
@@ -202,12 +195,3 @@ end
 function SWEP:ShouldDropOnDie()
 	return false
 end
---[[fix the below feature and I'll credit you for it btw]]
---[[if(CurHold == 0)then
-		self:SetHoldType("passive")
-		CurHold = 1
-	else
-		self:SetHoldType(self.DEFAULTHOLD)
-		CurHold = 0
-	end]]
- 
