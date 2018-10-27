@@ -31,11 +31,11 @@ Feature List:
   8. Interchangable color confige for blasters!(red, blue, green, yellow, orange, cyan and purple)
   9. Scorch marks on impact
   10. More to come soon!
-
 ------------------------------------------------------
 NOTE: It is highly advised to not use other weapon bases along side this weapon base. This one for the most part is much cleaner and easier to work with(its literally just 2 lua files and only 1 of them is being messed with)
 ------------------------------------------------------
 CREDITS TO:
+
 https://steamcommunity.com/id/serviusdoeswork/ For originally making the laser effect used here. Slight touch ups were made to it syntax wise however I do intend to further improve the effect into something completely new. reason for mention is that I included this edited effect to prevent compatibility issues from happening and to simplify things.
 -----------------------------------------------------
 https://steamcommunity.com/id/no1stargeorge For help with refining some functions in the initial base.
@@ -43,12 +43,12 @@ https://steamcommunity.com/id/no1stargeorge For help with refining some function
 https://steamcommunity.com/id/anthonyfuller For safety toggle and safety toggle spam prevention.
 -----------------------------------------------------
 https://steamcommunity.com/id/Rapadant_Networks_Vaas_Kahn_Grim/ For making a Simple AF weapon base out of frustration with other extremely bloated weapon bases.
------------------------------------------------------
+----------------------------------------------------
 NEXT UPDATE:
   1. Scoped Weapons Varient
   2. Example weapons for actual use
   3. Attatchments for weapons
   4. Replacement Effect for blaster shots
------------------------------------------------------
+----------------------------------------------------
 Want to help develop this addon further?! Just make a discussion thread and you can help all you want! :)
 
