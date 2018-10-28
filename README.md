@@ -32,7 +32,7 @@ Feature List:
   9. Scorch marks on impact
   10. More to come soon!
 ------------------------------------------------------
-NOTE: It is highly advised to not use other weapon bases along side this weapon base. This one for the most part is much cleaner and easier to work with(its literally just 2 lua files and only 1 of them is being messed with)
+NOTE: It is highly advised to not use other weapon bases along side this weapon base. This one for the most part is much cleaner and easier to work with(its literally just a few simple lua files rather then an entire gamemode worth of lua)
 ------------------------------------------------------
 CREDITS TO:
 
