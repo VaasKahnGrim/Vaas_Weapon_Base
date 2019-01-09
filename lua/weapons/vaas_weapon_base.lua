@@ -215,10 +215,10 @@ function SWEP:Reload()
 	if(self.Weapon:Clip1() >= self.Primary.ClipSize)then
 		return
 	end
-	if(CurTime() < Time + self.ReloadDelay)then
+	if(CurTime() < self.Time + self.ReloadDelay)then
 		return
 	end
-	Time = CurTime()
+	self.Time = CurTime()
 	timer.Simple(self.ReloadDelay,function() self.Weapon:EmitSound(self.ReloadSound)end)
 	self.Owner:SetAnimation(PLAYER_RELOAD)
 	self.Weapon:DefaultReload(ACT_VM_RELOAD)
