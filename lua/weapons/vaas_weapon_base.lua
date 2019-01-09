@@ -167,6 +167,7 @@ function SWEP:PrimaryAttack()
 		local val = self:GetFireTypeTable().OnParimary(self, Bullet)
 		if val then
 			if val == true then
+				ply:LagCompensation(false)
 				return -- They can't shoot for what ever reason	
 			else
 				Bullet = val
