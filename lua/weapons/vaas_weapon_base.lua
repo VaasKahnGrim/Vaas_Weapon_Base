@@ -99,8 +99,38 @@ SWEP.ShouldDropOnDie = false
 --[[the sound of the gun when you shoot it]]
 local ShootSound = Sound("weapons/dc15a/dc15a_fire.ogg")
 
+SWEP.Fireypes = {
+	[1] = {
+		Name	 	= "Automatic",
+		HoldType 	= "passive",
+		OnLoad 	 	= function(self)
+		
+		end,
+		OnPrimary 	= function(self)
+			
+		end,
+		OnSecondary 	= function(self)
+			
+		end,
+	},
+}
 
-
+SWEP.ExtraModels = {
+	["View"] = {
+		Model 	= "",
+		Pos	= Vector(0,0,0),
+		Bone	= false,
+		Angle	= Angle(0,0,0),
+	},
+	["World"] = {
+		[1] = {
+			Model = "",
+			Pos	= Vector(0,0,0),
+			Bone	= ""
+			Angle	= Angle(0,0,0),
+			
+	},
+}
 --[[
 	//////////////////////////////////////////////////////////////////
 	////////////////////END OF CONFIGURATION//////////////////////////
@@ -122,8 +152,9 @@ local ShootSound = Sound("weapons/dc15a/dc15a_fire.ogg")
 													Vaas Kahn Grim
 													[RAPADANT NETWORKS]
 ]]
-local Time = CurTime()
+-- There was a global here for all people this was VERY stupid
 function SWEP:Initialize()
+	self.Time = CurTime()
 	self:SetHoldType(self.DEFAULTHOLD)
 end
 function SWEP:PrimaryAttack()
@@ -184,10 +215,10 @@ function SWEP:Reload()
 	if(self.Weapon:Clip1() >= self.Primary.ClipSize)then
 		return
 	end
-	if(CurTime() < Time + self.ReloadDelay)then
+	if(CurTime() < self.Time + self.ReloadDelay)then
 		return
 	end
-	Time = CurTime()
+	self.Time = CurTime()
 	timer.Simple(self.ReloadDelay,function() self.Weapon:EmitSound(self.ReloadSound)end)
 	self.Owner:SetAnimation(PLAYER_RELOAD)
 	self.Weapon:DefaultReload(ACT_VM_RELOAD)
@@ -229,3 +260,63 @@ end
 		return true
 	end
 end]]
+
+Vaas = Vaas || {}	
+if !Vaas.CS then
+	local ent = ClientsideModel("models/player/kleiner.mdl")	
+	ent:SetNoDraw(true)
+	
+	Vaas.CS = ent
+end
+function SWEP:QuickRenderEnt(data, vm)
+	local pos = data.Pos
+	local ang = data.Ang
+	local bone = data.Bone
+	vm   = vm || self
+	
+	if bone then
+		local boneid = vm:LookupAttachment(bone)
+		if boneid then
+			local PosAng = self:GetAttachment(boneid)
+			pos = pos + PosAng.Pos
+			ang = ang + PosAng.Ang
+		else
+			if (self.NextBoneError || 0 ) < CurTime() then
+				self.Owner:ChatPrint( self:GetClass() .. " has an issue with bone " .. bone .. " if this model is an error ignore this print " )
+				self.NextBoneError = CurTime() + 300
+			end
+		end
+	end
+	Vaas.CS:SetModel(mdl)
+	Vaas.CS:SetAngles(ang)
+	Vaas.CS:SetPos(pos)
+	if data.PreRender then
+		data.PreRender(self, Vaas.CS, data)		
+	end
+	Vaas.CS:SetupBones()
+	Vaas.CS:DrawModel()
+	if data.PostRender then
+		data.PostRender(self, Vaas.CS, data)		
+	end
+end
+
+function SWEP:PostDrawViewModel(vm,wep, ply)
+	for index, data in pairs(  (wep.ExtraModels || {} )["View"] || {} ) do -- This is a mess but this will prevent older weapons from causing script errors
+		wep:QuickRenderEnt(data, vm)		
+	end
+end
+
+function SWEP:DrawWorldModel()
+	self:DrawModel()
+	for index, data in pairs( (wep.ExtraModels || {} )["World"] || {} ) do
+		wep:QuickRenderEnt(data)		
+	end
+end
+
+function SWEP:DrawWorldModelTranslucent()
+	self:DrawModel()
+	for index, data in pairs( (wep.ExtraModels || {} )["World"] || {} ) do
+		wep:QuickRenderEnt(data)		
+	end
+end
+		
