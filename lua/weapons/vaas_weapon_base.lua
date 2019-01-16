@@ -99,37 +99,11 @@ SWEP.ShouldDropOnDie = false
 --[[the sound of the gun when you shoot it]]
 local ShootSound = Sound("weapons/dc15a/dc15a_fire.ogg")
 
-SWEP.Fireypes = {
-	[1] = {
-		Name	 	= "Automatic",
-		HoldType 	= "passive",
-		OnLoad 	 	= function(self)
-		
-		end,
-		OnPrimary 	= function(self)
-			
-		end,
-		OnSecondary 	= function(self)
-			
-		end,
-	},
-}
+-- removed the SWEp.FireTypes
 
 SWEP.ExtraModels = {
-	["View"] = {
-		Model 	= "",
-		Pos	= Vector(0,0,0),
-		Bone	= false,
-		Angle	= Angle(0,0,0),
-	},
-	["World"] = {
-		[1] = {
-			Model = "",
-			Pos	= Vector(0,0,0),
-			Bone	= ""
-			Angle	= Angle(0,0,0),
-			
-	},
+	["View"] = {},
+	["World"] = {},
 }
 --[[
 	//////////////////////////////////////////////////////////////////
@@ -156,7 +130,23 @@ SWEP.ExtraModels = {
 function SWEP:Initialize()
 	self.Time = CurTime()
 	self:SetHoldType(self.DEFAULTHOLD)
+	if self.FireTypes then
+		self:SetHoldType(self.FireTypes[1].HoldType)	
+	end
 end
+
+function SWEP:SetupDataTables()
+	self:NetworkVar("Int", 31, "FireType") -- We give it 31 so that other developers should never have to worry about overridding this
+	
+	if SERVER then
+		self:SetFireType(1)	
+	end
+	
+	if self.ExtraDatatables then
+		self:ExtraDatatables()	
+	end
+end
+
 function SWEP:PrimaryAttack()
 	if self:GetHoldType() == "passive" then return end
 	if(not self:CanPrimaryAttack())then
@@ -173,6 +163,17 @@ function SWEP:PrimaryAttack()
 		Bullet.TracerName = "fucking_laser_"..self.TracerName
 		Bullet.Damage = self.Primary.Damage
 		Bullet.AmmoType = self.Primary.Ammo
+	if self.FireTypes then
+		local val = self:GetFireTypeTable().OnParimary(self, Bullet)
+		if val then
+			if val == true then
+				ply:LagCompensation(false)
+				return -- They can't shoot for what ever reason	
+			else
+				Bullet = val
+			end
+		end
+	end
 	self:FireBullets(Bullet)
 	self:ShootEffects()
 	self:EmitSound(ShootSound)
@@ -181,32 +182,50 @@ function SWEP:PrimaryAttack()
 	self:SetNextPrimaryFire(CurTime()+self.Primary.Delay)
 	ply:LagCompensation(false)
 end
-function SWEP:SecondaryAttack()
+function SWEP:SecondaryAttack() -- could do something with fire types for zooming
 	if(self.zoomEnabled == true)then
-		if(ScopeLevel == 0)then
+		if((self.ScopeLevel || 0) == 0)then
 			if(SERVER)then
 				self.Owner:SetFOV(self.ZoomLevelA,self.ZoomLevelB)
 			end
-			ScopeLevel = 1
+			self.ScopeLevel = 1
 		else
 			if(SERVER)then
 				self.Owner:SetFOV(0,self.ZoomLevelB)
 			end
-			ScopeLevel = 0
+			self.ScopeLevel = 0
 		end
 	else
 		return false
 	end
 end
+
+function SWEP:GetFireTypeTable()
+	return self.FireTypes[self:GetFireTypes()]	
+end
+
 function SWEP:Reload()
     if(self.cooldownvar || 0) < CurTime()then
         self.cooldownvar  = CurTime() + 2
         if self.Owner:KeyDown(IN_USE)and self.Owner:KeyDown(IN_SPEED)then
-            if(self:GetHoldType() == "passive")then
-                self:SetHoldType("ar2")
-            else
-                self:SetHoldType("passive")
-            end
+		if self.FireTypes then
+            		local val = self:GetFireTypes() + 1
+			if val > #self.FireTypes then
+				val = 1		
+			end
+			self:SetFireTypes(val)
+			if self.FireTypes[val].OnLoad then
+				self.FireTypes[val].OnLoad(self) -- Might want to put this in a network notify
+				self:SetHoldType(self:GetFireTypeTable().HoldType)
+			end
+		else -- We provide support for the older weapons or types with no need for two or gun types
+			if(self:GetHoldType() == "passive")then
+                		self:SetHoldType("ar2")
+            		else
+                		self:SetHoldType("passive")
+			end
+		end
+		return -- prevents it making us reload at the same time
         end
     end
 	if(self.Weapon:Ammo1() <= 0)then
