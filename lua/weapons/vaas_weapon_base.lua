@@ -4,11 +4,11 @@ if(SERVER)then
 	resource.AddWorkshop('912818711')
 	resource.AddWorkshop('907051587')
 	--missing alot of addons most likely for starwars weapons. just copy each addons ID into here.
-	
+
 	--[[DO ***NOT*** PUT THEM IN YOUR CONTENT COLLECTION, EXTRACT THEM AND UPLOAD THEM TO YOUR SERVER INSTEAD AND REMOVE THE LUA CODE FROM THEM!!!! ITS BETTER TO JUST REMAKE THEM FROM SCRATCH!!!!
-	
+
 	JUST MAKE SURE YOU KNOW HOW TO MAKE A BASIC SWEP FIRST AND YOU'LL BE FINE.
-	
+
 	YOU SHOULD BE DOING THIS ANYWAYS FOR YOUR ADDONS ALREADY BTW!!! ;)
 	]]
 end
@@ -43,7 +43,7 @@ SWEP.Weight = 5
 SWEP.AutoSwitchTo = true
 --[[switch from this weapon when you pick up another?]]
 SWEP.AutoSwitchFrom = false
---[[which key do you want to press to get to this weapon? 1,2,3,4,5 or 6]] 
+--[[which key do you want to press to get to this weapon? 1,2,3,4,5 or 6]]
 SWEP.Slot = 0
 --[[basically sort order of weapons on the same slot. 0 will be highest and 99 at botem of list]]
 SWEP.SlotPos = 0
@@ -109,11 +109,11 @@ SWEP.ExtraModels = {
 	//////////////////////////////////////////////////////////////////
 	////////////////////END OF CONFIGURATION//////////////////////////
 	//////////////////////////////////////////////////////////////////
-	
+
 	EVERYTHING BELOW IS SETUP THE WAY IT NEEDS TO BE TO WORK WITH YOUR
 	NEW SWEPS YOU MAKE! DO NOT COPY ANYTHING BELOW THIS INTO YOUR NEW
 	SWEPS!!! ITS ALREADY BEING USED WHEN YOU SET SWEP.Base = "vaas_weapon_base"
-	
+
 	Seriously I made this thing easy to use for a reason, its basic as
 	fuck but atleast you won't have the insane retarded issues that alot
 	of people have with TFA Weapons. I'll update it later with new features
@@ -121,30 +121,36 @@ SWEP.ExtraModels = {
 	config for each swep. I included some somewhat helpful advice for each
 	entry in the config. Lastly don't forget to follow the instructions at
 	the top regarding the downloading of content for this.
-	
+
 										With Lua,
 													Vaas Kahn Grim
 													[RAPADANT NETWORKS]
 ]]
 -- There was a global here for all people this was VERY stupid
 function SWEP:Initialize()
+	print("Hi?")
 	self.Time = CurTime()
 	self:SetHoldType(self.DEFAULTHOLD)
 	if self.FireTypes then
-		self:SetHoldType(self.FireTypes[1].HoldType)	
+		self:SetHoldType(self.FireTypes[1].HoldType)
 	end
 end
 
 function SWEP:SetupDataTables()
-	self:NetworkVar("Int", 31, "FireType") -- We give it 31 so that other developers should never have to worry about overridding this
-	
+	self:NetworkVar("Int", 30, "FireType") -- We give it 31 so that other developers should never have to worry about overridding this
+
 	if SERVER then
-		self:SetFireType(1)	
+		self:SetFireType(1)
 	end
-	
+
 	if self.ExtraDatatables then
-		self:ExtraDatatables()	
+		self:ExtraDatatables()
 	end
+end
+
+function SWEP:GetFireTypeTable()
+	print(self:GetFireType())
+	return self.FireTypes[self:GetFireType()] || {}
 end
 
 function SWEP:PrimaryAttack()
@@ -163,12 +169,16 @@ function SWEP:PrimaryAttack()
 		Bullet.TracerName = "fucking_laser_"..self.TracerName
 		Bullet.Damage = self.Primary.Damage
 		Bullet.AmmoType = self.Primary.Ammo
+
 	if self.FireTypes then
-		local val = self:GetFireTypeTable().OnParimary(self, Bullet)
+		local firetable = self:GetFireTypeTable()
+		PrintTable(firetable)
+		print("FUCKED")
+		local val = firetable.OnPrimary(self, Bullet)
 		if val then
 			if val == true then
 				ply:LagCompensation(false)
-				return -- They can't shoot for what ever reason	
+				return -- They can't shoot for what ever reason
 			else
 				Bullet = val
 			end
@@ -200,31 +210,28 @@ function SWEP:SecondaryAttack() -- could do something with fire types for zoomin
 	end
 end
 
-function SWEP:GetFireTypeTable()
-	return self.FireTypes[self:GetFireTypes()]	
-end
 
 function SWEP:Reload()
-    if(self.cooldownvar || 0) < CurTime()then
-        self.cooldownvar  = CurTime() + 2
-        if self.Owner:KeyDown(IN_USE)and self.Owner:KeyDown(IN_SPEED)then
-		if self.FireTypes then
-            		local val = self:GetFireTypes() + 1
-			if val > #self.FireTypes then
-				val = 1		
+	if self.Owner:KeyDown(IN_USE)and self.Owner:KeyDown(IN_SPEED)then
+    	if(self.cooldownvar || 0) < CurTime()then
+        	self.cooldownvar  = CurTime() + 2
+			if self.FireTypes then
+	            		local val = self:GetFireType() + 1
+				if val > #self.FireTypes then
+					val = 1
+				end
+				self:SetFireType(val)
+				if self.FireTypes[val].OnLoad then
+					self.FireTypes[val].OnLoad(self) -- Might want to put this in a network notify
+					self:SetHoldType(self:GetFireTypeTable().HoldType)
+				end
+			else -- We provide support for the older weapons or types with no need for two or gun types
+				if(self:GetHoldType() == "passive")then
+	            	self:SetHoldType("ar2")
+	            else
+	            	self:SetHoldType("passive")
+				end
 			end
-			self:SetFireTypes(val)
-			if self.FireTypes[val].OnLoad then
-				self.FireTypes[val].OnLoad(self) -- Might want to put this in a network notify
-				self:SetHoldType(self:GetFireTypeTable().HoldType)
-			end
-		else -- We provide support for the older weapons or types with no need for two or gun types
-			if(self:GetHoldType() == "passive")then
-                		self:SetHoldType("ar2")
-            		else
-                		self:SetHoldType("passive")
-			end
-		end
 		return -- prevents it making us reload at the same time
         end
     end
@@ -234,10 +241,11 @@ function SWEP:Reload()
 	if(self.Weapon:Clip1() >= self.Primary.ClipSize)then
 		return
 	end
-	if(CurTime() < self.Time + self.ReloadDelay)then
+	print(CurTime(), self.Time)
+	if(CurTime() < self.Time)then
 		return
 	end
-	self.Time = CurTime()
+	self.Time = CurTime() + self.ReloadDelay*2
 	timer.Simple(self.ReloadDelay,function() self.Weapon:EmitSound(self.ReloadSound)end)
 	self.Owner:SetAnimation(PLAYER_RELOAD)
 	self.Weapon:DefaultReload(ACT_VM_RELOAD)
@@ -279,24 +287,26 @@ end
 		return true
 	end
 end]]
-
-Vaas = Vaas || {}	
+ if SERVER then return end
+Vaas = Vaas || {}
 if !Vaas.CS then
-	local ent = ClientsideModel("models/player/kleiner.mdl")	
+	local ent = ClientsideModel("models/player/kleiner.mdl")
 	ent:SetNoDraw(true)
-	
+
 	Vaas.CS = ent
 end
 function SWEP:QuickRenderEnt(data, vm)
 	local pos = data.Pos
 	local ang = data.Ang
 	local bone = data.Bone
+	local mdl = data.Model
+	local scale = data.Scale || 1
 	vm   = vm || self
-	
+
 	if bone then
 		local boneid = vm:LookupAttachment(bone)
 		if boneid then
-			local PosAng = self:GetAttachment(boneid)
+			local PosAng = vm:GetAttachment(boneid)
 			pos = pos + PosAng.Pos
 			ang = ang + PosAng.Ang
 		else
@@ -306,36 +316,37 @@ function SWEP:QuickRenderEnt(data, vm)
 			end
 		end
 	end
+	if !mdl then return end
 	Vaas.CS:SetModel(mdl)
 	Vaas.CS:SetAngles(ang)
 	Vaas.CS:SetPos(pos)
+	Vaas.CS:SetModelScale(scale)
 	if data.PreRender then
-		data.PreRender(self, Vaas.CS, data)		
+		data.PreRender(self, Vaas.CS, data)
 	end
 	Vaas.CS:SetupBones()
 	Vaas.CS:DrawModel()
 	if data.PostRender then
-		data.PostRender(self, Vaas.CS, data)		
+		data.PostRender(self, Vaas.CS, data)
 	end
 end
 
 function SWEP:PostDrawViewModel(vm,wep, ply)
 	for index, data in pairs(  (wep.ExtraModels || {} )["View"] || {} ) do -- This is a mess but this will prevent older weapons from causing script errors
-		wep:QuickRenderEnt(data, vm)		
+		wep:QuickRenderEnt(data, vm)
 	end
 end
 
 function SWEP:DrawWorldModel()
 	self:DrawModel()
 	for index, data in pairs( (wep.ExtraModels || {} )["World"] || {} ) do
-		wep:QuickRenderEnt(data)		
+		wep:QuickRenderEnt(data)
 	end
 end
 
 function SWEP:DrawWorldModelTranslucent()
 	self:DrawModel()
 	for index, data in pairs( (wep.ExtraModels || {} )["World"] || {} ) do
-		wep:QuickRenderEnt(data)		
+		wep:QuickRenderEnt(data)
 	end
 end
-		
