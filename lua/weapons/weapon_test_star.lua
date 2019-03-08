@@ -29,7 +29,7 @@ SWEP.Weight = 5
 SWEP.AutoSwitchTo = true
 --[[switch from this weapon when you pick up another?]]
 SWEP.AutoSwitchFrom = false
---[[which key do you want to press to get to this weapon? 1,2,3,4,5 or 6]] 
+--[[which key do you want to press to get to this weapon? 1,2,3,4,5 or 6]]
 SWEP.Slot = 0
 --[[basically sort order of weapons on the same slot. 0 will be highest and 99 at botem of list]]
 SWEP.SlotPos = 0
@@ -99,7 +99,7 @@ SWEP.FireTypes = {
 		Name 		= "Holster",
 		HoldType	= "passive",
 		OnLoad		= function(self)
-				
+
 		end,
 		OnPrimary	= function(self, bullet)
 			return true
@@ -108,10 +108,13 @@ SWEP.FireTypes = {
 }
 
 SWEP.ExtraModels = {
-  ["View"] = {
-    [1] = {
-      Pos = Vector(0,10,0),
-      Ang = Angle(0,0,0),
-      Model = "models/hunter/blocks/cube025x025x025.mdl"
-  },
+	["View"] = {
+		[1] = {
+			Bone = "1",
+			Scale = 0.2,
+			Pos = Vector(0,0,5),
+			Ang = Angle(0,0,0),
+			Model = "models/hunter/blocks/cube025x025x025.mdl"
+  		},
+	}
 }
