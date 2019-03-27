@@ -5,7 +5,7 @@ https://steamcommunity.com/sharedfiles/filedetails/?id=1548256366
 HOW TO USE:
 (STEPS 1-3 ARE IMPORTANT AS THIS IS HOW YOU SHOULD BE DELIVERING CONTENT TO YOUR SERVER. AVOID OVER USING WORKSHOP COLLECTIONS, IT JUST SLOWS DOWN SERVER REBOOTS WHEN IT HAS TO CHECK 100 DIFFERENT ADDONS FOR UPDATES THAT RARELY HAPPEN.)
 
-STEP 1: Extract this addon using gmad, and upload the weapon base content to your servers addon folder.
+STEP 1: Download the latest release in the releases tab.
 
 STEP 2: Go to the weapons you used before and extract the content from them and upload it to your servers addon folder as well. DO NOT COPY OVER THE LUA FILES TO THE SERVER! This addon is meant for NEW weapons, the old weapons will just be rendered broken.
 
