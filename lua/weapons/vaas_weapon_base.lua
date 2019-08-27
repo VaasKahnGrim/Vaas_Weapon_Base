@@ -317,15 +317,15 @@ function SWEP:DrawWorldModel()
 	--if self.EnableWM = true --Will this work? Should only prevent drawing it on the client, should still exist
 		self:DrawModel()
 	--end --Will this work?
-	for index, data in pairs( (wep.ExtraModels || {} )["World"] || {} ) do
-		wep:QuickRenderEnt(data)
+	for index, data in pairs( (self.ExtraModels || {} )["World"] || {} ) do
+		self:QuickRenderEnt(data)
 	end
 end
 --
 function SWEP:DrawWorldModelTranslucent()
 	self:DrawModel()
-	for index, data in pairs( (wep.ExtraModels || {} )["World"] || {} ) do
-		wep:QuickRenderEnt(data)
+	for index, data in pairs( (self.ExtraModels || {} )["World"] || {} ) do
+		self:QuickRenderEnt(data)
 	end
 end
 
