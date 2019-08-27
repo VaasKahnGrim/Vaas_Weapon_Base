@@ -314,14 +314,14 @@ function SWEP:PostDrawViewModel(vm,wep, ply)
 end
 
 function SWEP:DrawWorldModel()
-	--if self.EnableWM = true --Will this work? Should only prevent drawing it on the client, should still exist
+	if self.EnableWM == true then
 		self:DrawModel()
-	--end --Will this work?
+	end
 	for index, data in pairs( (self.ExtraModels || {} )["World"] || {} ) do
 		self:QuickRenderEnt(data)
 	end
 end
---
+
 function SWEP:DrawWorldModelTranslucent()
 	self:DrawModel()
 	for index, data in pairs( (self.ExtraModels || {} )["World"] || {} ) do
@@ -329,13 +329,13 @@ function SWEP:DrawWorldModelTranslucent()
 	end
 end
 
---[[function SWEP:ShouldDrawViewModel()--Will this work? Should only prevent drawing it on the client, should still exist
-	if self.EnableVM = true then
+function SWEP:ShouldDrawViewModel()
+	if self.EnableVM == true then
 		return true
 	else
 		return false
 	end
-end]]
+end
 
 function SWEP:Holster( wep )
 	if not IsFirstTimePredicted() then return end
