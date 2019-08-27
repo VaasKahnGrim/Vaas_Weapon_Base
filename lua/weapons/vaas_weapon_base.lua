@@ -26,6 +26,8 @@ SWEP.Category = "Vaas Weapon Base" --[[where it will be in the q-menu; Try to ke
 SWEP.Spawnable = false --[[will it even show up in q-menu?]]
 SWEP.AdminSpawnable = false --[[is it only spawnable by BADMINS]]
 
+SWEP.EnableVM = true
+SWEP.EnableWM = true
 SWEP.ViewModel = "models/weapons/v_DC15A.mdl" --[[what you see in first person view]]
 SWEP.ViewModelFlip = false --[[if its upside down in first person set this to true]]
 SWEP.WorldModel = "models/weapons/W_DC15A.mdl" --[[what other players see you holding]]
@@ -312,7 +314,9 @@ function SWEP:PostDrawViewModel(vm,wep, ply)
 end
 
 function SWEP:DrawWorldModel()
-	self:DrawModel()
+	if self.EnableWM = true --Will this work? Should only prevent drawing it on the client, should still exist
+		self:DrawModel()
+	end --Will this work?
 	for index, data in pairs( (wep.ExtraModels || {} )["World"] || {} ) do
 		wep:QuickRenderEnt(data)
 	end
@@ -322,5 +326,13 @@ function SWEP:DrawWorldModelTranslucent()
 	self:DrawModel()
 	for index, data in pairs( (wep.ExtraModels || {} )["World"] || {} ) do
 		wep:QuickRenderEnt(data)
+	end
+end
+
+function SWEP:ShouldDrawViewModel()--Will this work? Should only prevent drawing it on the client, should still exist
+	if self.EnableVM = true then
+		return true
+	else
+		return false
 	end
 end
