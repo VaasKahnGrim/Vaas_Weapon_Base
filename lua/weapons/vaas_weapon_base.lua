@@ -339,7 +339,7 @@ end]]
 
 function SWEP:Holster( wep )
 	if not IsFirstTimePredicted() then return end
-	if self.RPActions = true
-		LocalPlayer():ChatPrint( "You holstered your "..self.PrintName.." and equiped your "(wep.PrintName or wep:GetClass()))
+	if self.RPActions == true then
+		LocalPlayer():ChatPrint( "You holstered your "..self.PrintName.." and equiped your "..(wep.PrintName or wep:GetClass()))
 	end
 end
