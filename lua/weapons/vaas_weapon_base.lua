@@ -49,6 +49,8 @@ SWEP.TracerName = "blue" --[[the laser that actually fires out the gun. don't fu
 SWEP.TracerCount = 1 --[[its a laser gun, best not to change the tracer count unless its a Republic shotgun or something]]
 SWEP.Primary.NumShots = 1 --[[how many blasts come out per shot? leave as 1 unless its a shotgun or something]]
 
+SWEP.ImpactMark = "blaster_burn"
+
 SWEP.Primary.Automatic = true --[[single shot or automatic? will have better method later for this]]
 SWEP.Primary.ClipSize = 50 --[[how much ammo per clip]]
 SWEP.Primary.DefaultClip = 200 --[[ammo in reserve]]
@@ -234,7 +236,7 @@ function SWEP:DoImpactEffect(tr,dmgtype)
 		local effect = EffectData()
 		effect:SetOrigin(tr.HitPos)
 		effect:SetNormal(tr.HitNormal)
-		util.Effect("blaster_burn",effect)
+		util.Effect(self.ImpactMark,effect) --util.Effect("blaster_burn",effect)
 		local effect = EffectData()
 		effect:SetOrigin(tr.HitPos)
 		effect:SetStart(tr.StartPos)
