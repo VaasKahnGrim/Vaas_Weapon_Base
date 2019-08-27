@@ -26,8 +26,8 @@ SWEP.Category = "Vaas Weapon Base" --[[where it will be in the q-menu; Try to ke
 SWEP.Spawnable = false --[[will it even show up in q-menu?]]
 SWEP.AdminSpawnable = false --[[is it only spawnable by BADMINS]]
 
-SWEP.EnableVM = true
-SWEP.EnableWM = true
+SWEP.EnableVM = true --[[enables the view model to be drawn]]
+SWEP.EnableWM = true --[[enables the world model to be drawn]]
 SWEP.ViewModel = "models/weapons/v_DC15A.mdl" --[[what you see in first person view]]
 SWEP.ViewModelFlip = false --[[if its upside down in first person set this to true]]
 SWEP.WorldModel = "models/weapons/W_DC15A.mdl" --[[what other players see you holding]]
@@ -51,6 +51,7 @@ SWEP.TracerName = "fucking_laser_blue" --[[the laser that actually fires out the
 SWEP.TracerCount = 1 --[[its a laser gun, best not to change the tracer count unless its a Republic shotgun or something]]
 SWEP.Primary.NumShots = 1 --[[how many blasts come out per shot? leave as 1 unless its a shotgun or something]]
 
+SWEP.RPActions = true --[[This determins if certain actions should be printed to the chat for immersiveness. ex, equiping a weapon]]
 SWEP.ImpactMark = "blaster_burn" --[[Allows you to change the impact mark bullets/rounds make when striking a surface]]
 
 SWEP.Primary.Automatic = true --[[single shot or automatic? will have better method later for this]]
@@ -69,7 +70,6 @@ SWEP.zoomEnabled = true --[[can you zoom in at all?]]
 
 SWEP.ShootSound = Sound("weapons/dc15a/dc15a_fire.ogg") --[[the sound of the gun when you shoot it]]
 SWEP.ReloadSound = Sound("weapons/shared/standard_reload.ogg") --[[don't bother changing the sound for reloading unless you really want to]]
-
 
 --[[leave these unchanged for now, will probably rework later for other uses]]
 SWEP.ReloadDelay = 0 --[[how long it takes to begin reloading the gun. For later features to use. leave default for now]]
@@ -334,5 +334,12 @@ function SWEP:ShouldDrawViewModel()--Will this work? Should only prevent drawing
 		return true
 	else
 		return false
+	end
+end
+
+function SWEP:Holster( wep )
+	if not IsFirstTimePredicted() then return end
+	if self.RPActions = true
+		LocalPlayer():ChatPrint( "You holstered your "..self.PrintName.." and equiped your "(wep.PrintName or wep:GetClass()))
 	end
 end
