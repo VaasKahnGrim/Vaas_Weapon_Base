@@ -45,11 +45,11 @@ SWEP.DrawAmmo = false --[[apparently important. I suggest leave false unless you
 SWEP.DrawCrosshair = true --[[a crosshair thats basic and default with garrysmod. true if you want it, false if you don't]]
 
 SWEP.Weight = 5 --[[how heavy your swep is? I guess it could be useful so why the hell not put it here for you]]
-SWEP.TracerName = "blue" --[[the laser that actually fires out the gun. don't fuck with this unless you know how effects work in lua]]
+SWEP.TracerName = "fucking_laser_blue" --[[the laser that actually fires out the gun. don't fuck with this unless you know how effects work in lua]]
 SWEP.TracerCount = 1 --[[its a laser gun, best not to change the tracer count unless its a Republic shotgun or something]]
 SWEP.Primary.NumShots = 1 --[[how many blasts come out per shot? leave as 1 unless its a shotgun or something]]
 
-SWEP.ImpactMark = "blaster_burn"
+SWEP.ImpactMark = "blaster_burn" --[[Allows you to change the impact mark bullets/rounds make when striking a surface]]
 
 SWEP.Primary.Automatic = true --[[single shot or automatic? will have better method later for this]]
 SWEP.Primary.ClipSize = 50 --[[how much ammo per clip]]
@@ -65,12 +65,12 @@ SWEP.ZoomLevelA = 60 --[[how far you zoom in? will redo this later probably]]
 SWEP.ZoomLevelB = .2 --[[how fast you zoom in]]
 SWEP.zoomEnabled = true --[[can you zoom in at all?]]
 
-local ShootSound = Sound("weapons/dc15a/dc15a_fire.ogg") --[[the sound of the gun when you shoot it]]
+SWEP.ShootSound = Sound("weapons/dc15a/dc15a_fire.ogg") --[[the sound of the gun when you shoot it]]
 SWEP.ReloadSound = Sound("weapons/shared/standard_reload.ogg") --[[don't bother changing the sound for reloading unless you really want to]]
 
 
 --[[leave these unchanged for now, will probably rework later for other uses]]
-SWEP.ReloadDelay = 0.5 --[[how long it takes to begin reloading the gun. For later features to use. leave default for now]]
+SWEP.ReloadDelay = 0 --[[how long it takes to begin reloading the gun. For later features to use. leave default for now]]
 SWEP.Secondary.ClipSize = -1
 SWEP.Secondary.DefaultClip = -1
 SWEP.Secondary.Ammo = "none"
@@ -140,7 +140,7 @@ function SWEP:PrimaryAttack()
 		Bullet.Dir = ply:GetAimVector()
 		Bullet.Spread = Vector(self.Primary.Spread,self.Primary.Spread,0)
 		Bullet.Tracer = 1
-		Bullet.TracerName = "fucking_laser_"..self.TracerName
+		Bullet.TracerName = self.TracerName
 		Bullet.Damage = self.Primary.Damage
 		Bullet.AmmoType = self.Primary.Ammo
 
@@ -160,7 +160,7 @@ function SWEP:PrimaryAttack()
 	end
 	self:FireBullets(Bullet)
 	self:ShootEffects()
-	self:EmitSound(ShootSound)
+	self:EmitSound(self.ShootSound)
 	self.BaseClass.ShootEffects(self)
 	self:TakePrimaryAmmo(1)
 	self:SetNextPrimaryFire(CurTime()+self.Primary.Delay)
