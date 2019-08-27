@@ -321,13 +321,13 @@ function SWEP:DrawWorldModel()
 		wep:QuickRenderEnt(data)
 	end
 end
-
+--[[
 function SWEP:DrawWorldModelTranslucent()
 	self:DrawModel()
 	for index, data in pairs( (wep.ExtraModels || {} )["World"] || {} ) do
 		wep:QuickRenderEnt(data)
 	end
-end
+end]]
 
 function SWEP:ShouldDrawViewModel()--Will this work? Should only prevent drawing it on the client, should still exist
 	if self.EnableVM = true then
