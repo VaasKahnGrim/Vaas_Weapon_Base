@@ -1,5 +1,5 @@
 {
-"string":"hello world",
-"number":1,
-"table":["test1","test2","test3"]
+  "version": "Beta 3A",
+  "version_num": 3,
+  "change_notes": "This is the initial test for changes being made and being able to inform server owners."
 }
