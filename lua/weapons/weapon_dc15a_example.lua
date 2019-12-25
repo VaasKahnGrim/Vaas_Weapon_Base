@@ -80,3 +80,14 @@ SWEP.zoomEnabled = true
 SWEP.MeleeSound = Sound'Weapon_Crowbar.single'
 SWEP.MeleeHit = Sound'Weapon_Crowbar.Melee_Hit'
 SWEP.MeleeDMG = 25
+--[[SWEP.ExtraModels = {
+	["View"] = {
+		[1] = {
+			Bone = "1",
+			Scale = 0.2,
+			Pos = Vector(0,0,5),
+			Ang = Angle(0,0,0),
+			Model = "models/hunter/blocks/cube025x025x025.mdl"
+  		},
+	}
+}]]
